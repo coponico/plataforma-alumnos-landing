@@ -1,0 +1,440 @@
+/* src/App.css - v3.1 (FIX MÓVIL + ESTÉTICA + BOTÓN ORIGINAL) */
+
+/* =========================================
+   1. VARIABLES & COLORES
+   ========================================= */
+:root {
+  /* Colores Principales */
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --primary-soft: rgba(99, 102, 241, 0.15);
+  
+  /* Colores de Estado (Para los íconos de las cards) */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+
+  /* Fondos y Textos */
+  --bg-body: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-nav: rgba(255, 255, 255, 0.85); /* Efecto vidrio */
+  
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  
+  --border: #e2e8f0;
+  
+  /* UI System */
+  --radius-card: 20px;
+  --radius-btn: 12px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+  --shadow-primary: 0 10px 25px -5px rgba(99, 102, 241, 0.4);
+}
+
+/* MODO OSCURO */
+body.dark-mode {
+  --bg-body: #020617; 
+  --bg-card: #0f172a; 
+  --bg-nav: rgba(2, 6, 23, 0.85);
+  --text-main: #f8fafc; 
+  --text-muted: #94a3b8;
+  --border: #1e293b; 
+  --primary-soft: rgba(99, 102, 241, 0.25);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.5);
+  background-color: var(--bg-body);
+}
+
+/* =========================================
+   2. RESET Y ESTRUCTURA BASE
+   ========================================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body, #root {
+  width: 100%;
+  min-height: 100vh;
+  display: block;
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--text-main);
+  background-color: var(--bg-body);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+img, video, iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* =========================================
+   3. APP SHELL (Layout Principal)
+   ========================================= */
+.app-shell {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================================
+   4. NAVBAR
+   ========================================= */
+.app-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  
+  background: var(--bg-nav);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  
+  border: 1px solid var(--border);
+  border-bottom: 2px solid var(--primary-soft);
+  border-radius: 20px;
+  margin-bottom: 40px;
+  
+  position: sticky;
+  top: 20px;
+  z-index: 1000;
+  box-shadow: var(--shadow-md);
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.app-navbar-left, .app-navbar-right { display: flex; align-items: center; gap: 16px; }
+
+.app-title {
+  font-size: 1.5rem;
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text-main);
+}
+
+/* =========================================
+   5. BOTONES E INTERACTIVOS
+   ========================================= */
+
+/* --- AQUÍ ESTÁ EL CAMBIO: VUELTA AL ORIGINAL --- */
+.theme-toggle { 
+  background: transparent; 
+  border: 1px solid var(--border); 
+  cursor: pointer; 
+  color: var(--text-muted); 
+  font-size: 1.2rem; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  padding: 8px; /* Padding simple, sin tamaño fijo forzado */
+  border-radius: 50%;
+  /* Sin hover de colores fuertes */
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  padding: 14px 36px;
+  border-radius: var(--radius-btn);
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  box-shadow: var(--shadow-primary);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 30px -5px rgba(99, 102, 241, 0.6);
+}
+
+/* =========================================
+   6. CARDS (TARJETAS)
+   ========================================= */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  padding: 40px 30px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  width: 100%;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-soft);
+}
+
+.card h3 {
+  margin-bottom: 12px;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* =========================================
+   7. GRILLAS Y SECCIONES
+   ========================================= */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  width: 100%;
+}
+
+/* =========================================
+   8. RESPONSIVE (MÓVIL) - FIX CRÍTICO
+   ========================================= */
+@media (max-width: 768px) {
+  
+  /* 1. Reset de padding en contenedor padre */
+  .app-shell {
+    padding: 0 !important; 
+    width: 100% !important;
+    max-width: 100vw !important;
+
+  }
+
+  /* 2. Navbar full width */
+  .app-navbar {
+    width: 100%;
+    margin: 0 0 30px 0;
+    border-radius: 0 0 20px 20px;
+    border-left: none; border-right: none; border-top: none;
+    top: 0;
+    left: 0;
+    padding: 15px 20px;
+  }
+
+  /* 3. Padding interno en secciones */
+  header, section, footer {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    width: 100%;
+  }
+  
+  /* 4. Títulos grandes en móvil */
+  h1.app-title { 
+    font-size: 2.5rem !important; 
+    white-space: normal;
+  }
+
+  /* 5. Grilla vertical */
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+/* ... resto del css anterior ... */
+
+/* =========================================
+   9. UTILIDADES DE VISIBILIDAD (NUEVO)
+   ========================================= */
+.desktop-only {
+  display: block;
+  width: 100%;
+}
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none;
+  }
+  .mobile-only {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+  }
+}
+
+/* Ajuste para que la grilla de 6 items se vea bien */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Se adapta auto */
+  gap: 30px;
+  width: 100%;
+}
+
+/* =========================================
+   11. GALERÍA DE CAPTURAS (VISUAL TOUR)
+   ========================================= */
+.gallery-section {
+  padding: 60px 20px;
+  background-color: var(--bg-body);
+}
+
+.gallery-category-title {
+  text-align: center;
+  font-size: 1.8rem;
+  margin: 40px 0 30px;
+  color: var(--primary);
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Se adaptan solas */
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.gallery-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gallery-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+
+.gallery-img-container {
+  width: 100%;
+  height: 250px;       /* <--- Altura FIJA: Todas las cajas medirán lo mismo */
+  overflow: hidden;
+  background: #020617; /* Fondo oscuro fijo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--border);
+  padding: 15px;       /* Un poco más de aire interno */
+}
+
+/* Y asegúrate de que la imagen se adapte dentro de esa caja fija */
+.gallery-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* La imagen se achica para entrar sin cortarse */
+  max-height: 100%;    /* Quitamos el límite anterior de 300px */
+}
+
+/* Efecto zoom al pasar el mouse por la imagen */
+.gallery-card:hover .gallery-img-container img {
+  transform: scale(1.05);
+}
+
+.gallery-caption {
+  padding: 20px;
+}
+
+.gallery-caption h4 {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  color: var(--text-main);
+}
+
+.gallery-caption p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* =========================================
+   12. FIX DE DESBORDE EN MÓVIL (GRID)
+   ========================================= */
+
+/* Hacemos que en pantallas chicas, las columnas ocupen el 100% disponible 
+   y no fuercen un mínimo de 300px */
+@media (max-width: 480px) {
+  
+  .features-grid, 
+  .gallery-grid {
+    /* Forzamos 1 sola columna que se adapte al ancho real */
+    grid-template-columns: 1fr !important; 
+    gap: 20px;
+    width: 100%;
+  }
+
+  /* Aseguramos que las imágenes nunca excedan el ancho de su contenedor */
+  img {
+    max-width: 100%;
+  }
+
+  /* Reducimos un poco el padding lateral de la sección de galería para ganar espacio */
+  .gallery-section {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+}
+
+/* =========================================
+   13. BOTONES WHATSAPP (CORREGIDOS)
+   ========================================= */
+
+/* A. Botón Grande de Contacto (CTA) */
+.btn-whatsapp {
+  background: linear-gradient(135deg, #25D366, #128C7E); /* Degradado Verde WhatsApp */
+  color: white;
+  padding: 14px 36px;
+  border-radius: var(--radius-btn);
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  border: none;
+  
+  /* Sombra Verde */
+  box-shadow: 0 10px 25px -5px rgba(37, 211, 102, 0.5);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-whatsapp:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 30px -5px rgba(37, 211, 102, 0.7);
+  color: white; /* Aseguramos que el texto siga blanco */
+}
+
+/* B. Botón Flotante (Floating) */
+.btn-floating-whatsapp {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #25D366;
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 2000;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s;
+  text-decoration: none;
+  border: 2px solid white;
+}
+
+.btn-floating-whatsapp:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 14px rgba(37, 211, 102, 0.4);
+  background-color: #20BA5A; /* Un verde un poquito más oscuro al pasar el mouse, NO azul */
+  color: white !important;   /* Forzamos blanco para que no herede color de link */
+}
